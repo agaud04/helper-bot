@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Helper Bot</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🤖</span>
+    <span class="title">Helper Bot</span>
+    <label class="toggle" title="Enable/disable Helper Bot">
+      <input type="checkbox" id="enableToggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="section">
+    <label class="label" for="apiKey">Anthropic API Key</label>
+    <div class="key-row">
+      <input type="password" id="apiKey" placeholder="sk-ant-api03-..." class="key-input" autocomplete="off">
+      <button id="saveKey" class="btn-save">Save</button>
+    </div>
+    <div id="keyStatus" class="status"></div>
+  </div>
+
+  <div class="section">
+    <div id="pageStatus" class="page-status">Checking page...</div>
+  </div>
+
+  <div class="footer">
+    Refresh Canvas after enabling or changing API key.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
