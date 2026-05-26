@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Helper Bot",
+  "version": "1.0",
+  "description": "Automatically answers Canvas quiz questions using Claude AI",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*.instructure.com/*",
+    "https://*.canvas.com/*",
+    "https://rmit.instructure.com/*",
+    "https://api.anthropic.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.instructure.com/courses/*/quizzes/*",
+        "https://*.canvas.com/courses/*/quizzes/*"
+      ],
+      "js": ["content.js"],
+      "css": ["overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Helper Bot"
+  }
+}
