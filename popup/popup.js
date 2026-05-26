@@ -23,8 +23,8 @@ saveKeyBtn.addEventListener('click', async () => {
     keyStatus.className = 'status error';
     return;
   }
-  if (!key.startsWith('sk-ant-')) {
-    keyStatus.textContent = '✗ Key must start with sk-ant-';
+  if (!key.startsWith('sk-')) {
+    keyStatus.textContent = '✗ Key must start with sk-';
     keyStatus.className = 'status error';
     return;
   }

@@ -1,5 +1,5 @@
 // background.js — MV3 service worker
-// Receives ASK_CLAUDE messages from content script, calls Anthropic API, returns answer.
+// Receives ASK_CLAUDE messages from content script, calls OpenAI API, returns answer.
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === 'ASK_CLAUDE') {
@@ -20,20 +20,19 @@ async function handleAskClaude({ questionText, questionType, options }) {
     return { answer: null }; // Silently skip when disabled
   }
   if (!helperBotApiKey) {
-    return { answer: '⚙️ No API key — click the Helper Bot icon to add your Anthropic key.' };
+    return { answer: '⚙️ No API key — click the Helper Bot icon to add your OpenAI key.' };
   }
 
   const prompt = buildPrompt(questionText, questionType, options);
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'x-api-key': helperBotApiKey,
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
+      'Authorization': `Bearer ${helperBotApiKey}`,
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'gpt-4o-mini',
       max_tokens: 512,
       messages: [{ role: 'user', content: prompt }],
     }),
@@ -46,7 +45,7 @@ async function handleAskClaude({ questionText, questionType, options }) {
   }
 
   const data = await response.json();
-  const answer = data.content?.[0]?.text || '(no response)';
+  const answer = data.choices?.[0]?.message?.content || '(no response)';
   return { answer };
 }
 

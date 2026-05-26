@@ -12,7 +12,7 @@
     "https://*.instructure.com/*",
     "https://*.canvas.com/*",
     "https://rmit.instructure.com/*",
-    "https://api.anthropic.com/*"
+    "https://api.openai.com/*"
   ],
   "background": {
     "service_worker": "background.js"
